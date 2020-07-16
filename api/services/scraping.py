@@ -8,7 +8,7 @@ USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:65.0) Gecko/20100
 def get_all():
     results = []
 
-    file_path = './services/list_request.json'
+    file_path = './api/services/list_request.json'
     file = open(file_path, 'r')
 
     list_request = json.load(file)

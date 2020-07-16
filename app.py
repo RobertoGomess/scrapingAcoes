@@ -1,4 +1,4 @@
-from services.scraping import get_all,get_by_name
+from api.services.scraping import get_all,get_by_name
 from flask import request, url_for, jsonify
 from flask_api import FlaskAPI, status, exceptions
 

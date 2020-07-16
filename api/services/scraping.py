@@ -14,23 +14,30 @@ def get_all():
     list_request = json.load(file)
 
     for query in list_request:
-        results.append(get_by_name(query))
+        result = get_by_name(query)
+        if result:
+            results.append(result)
 
     return results
 
 def get_by_name(name):
-    query = name.replace(' ', '+')
-    URL = f"https://google.com/search?q={query}"
+    try:
+        result = {}
+        query = name.replace(' ', '+')
+        URL = f"https://google.com/search?q={query}"
 
-    headers = {"user-agent": USER_AGENT}
-    resp = requests.get(URL, headers=headers)
+        headers = {"user-agent": USER_AGENT}
+        resp = requests.get(URL, headers=headers)
 
-    if resp.status_code == 200:
-        soup = BeautifulSoup(resp.content, "html.parser")
-        response = soup.find_all('span', jsname='vWLAgc')
-        if response:
-            value = response[0].text.replace(',','.')
-            result = {'name':query, 'value': value}
-            print(value)
-            return result
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.content, "html.parser")
+            response = soup.find_all('span', jsname='vWLAgc')
+            if response:
+                value = response[0].text.replace(',','.')
+                result = {'name':query, 'value': value}
+                print(value)
+    except:
+        print(f"Ocorreu um error ao tentar consultar a ação: {query}")
+
+    return result    
     
